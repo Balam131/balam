@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Desafio-encriptar</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <img src="logo a.png" alt="Alura">      
+        </header>
+
+        <main>
+            <div id="principal">
+                <ul>
+                    <li id="bloque2">
+                        <textarea id="input" required placeholder="Ingrese texto aqui"></textarea>
+                        <button id="encriptar">Encriptar</button> 
+                        <button id="desencriptar">Desencriptar</button>
+                            
+                    </li>
+                    <li id="bloque1">
+                        <textarea id="output"></textarea> 
+                        <button id="copiar">Copiar</button> 
+                    </li>
+                    <li id="bloque3">
+                        <img id="persona" src="Imagenpersona.png">
+                        <h1> Ningún mensaje fue encontrado</h1>
+                        <h2> Ingresa el texto que desees encriptar o desencriptar </h2>
+                    </li>
+                </ul>      
+                
+            </div>
+            <script>
+                document.getElementById("bloque1").style.visibility = "hidden";
+                let btnEncriptar = document.querySelector("#encriptar");
+                let btnDesencriptar = document.querySelector("#desencriptar");
+                let btnCopiar = document.querySelector("#copiar");               
+                btnEncriptar.onclick = encrypt;
+                btnDesencriptar.onclick = desencrypt;
+                btnCopiar.onclick = copiarAlPortapapeles;
+                 
+                const outputArea = document.querySelector("#output");
+                const input2 = document.querySelector("#input");
+                const dict = [["e", "enter"], ["i", "imes"], ["a", "ai"], ["o", "ober"], ["u", "ufat"]];
+                
+
+                function desencrypt() {                         
+                    const input = document.querySelector("#input").value;
+                    let output = input;
+                    for(let i in dict) {
+                        output = output.replaceAll(dict[i][1], dict[i][0]);
+                    }
+                    outputArea.innerHTML = output;
+                    document.getElementById("bloque3").style.visibility = "hidden";
+                    document.getElementById("bloque1").style.visibility = "visible"; 
+                }           
+                function encrypt() {
+                    const input = document.querySelector("#input").value;
+                    let output = input;
+                    for(let i in dict) {
+                        output = output.replaceAll(dict[i][0], dict[i][1]);
+                    }
+                    outputArea.innerHTML = output;
+                    document.getElementById("bloque3").style.visibility = "hidden";
+                    document.getElementById("bloque1").style.visibility = "visible"; 
+                }
+                
+                function copiarAlPortapapeles() {
+                    var aux = document.createElement("input");
+                    aux.setAttribute("value", document.querySelector("#output").value);
+                    document.body.appendChild(aux);
+                    aux.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(aux);
+                    alert("Se copio el texto");
+                }
+                
+
+            </script>
+            
+        </main>
+
+
+    </body>
+
+</html>
